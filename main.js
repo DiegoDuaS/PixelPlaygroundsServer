@@ -4,7 +4,10 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 3002;
 
-const {posts} = require('./db.js');
+const {posts, createpost, deletepost, getpost, updatePost} = require('./db.js');
+
+// Middleware para parsear el cuerpo de la solicitud como JSON
+app.use(express.json());
 
 app.get('/posts', async (req, res) => {
     try {
@@ -14,7 +17,92 @@ app.get('/posts', async (req, res) => {
       console.error(err);
       res.status(500).send('Internal Server Error');
     }
-  });
+});
+
+app.post('/createpost', async (req, res) => {
+  const { name, release_date, description, image } = req.body; 
+
+  if (!name || !release_date || !description || !image ) {
+    return res.status(400).json({ error: 'Todos los parametros son requeridos' });
+  }
+
+  try {
+    const newPost = await createpost(name,release_date,description,image);
+    
+    if (newPost) {
+      return res.json(newPost);
+    } else {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+  } catch (err) {
+    console.error('Error en /createpost:', err);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.post('/deletepost', async (req, res) => {
+  const { post_id } = req.body; 
+
+  if (!post_id ) {
+    return res.status(400).json({ error: 'El id del post es requerido' });
+  }
+
+  try {
+    const PostD = await deletepost(post_id);
+    
+    if (deletepost) {
+      return res.json(PostD);
+    } else {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+  } catch (err) {
+    console.error('Error en /deletepost:', err);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.post('/getpost', async (req, res) => {
+  const { id_post } = req.body; 
+
+  if (!id_post ) {
+    return res.status(400).json({ error: 'El id del post es requerido' });
+  }
+
+  try {
+    const post = await getpost(id_post);
+    
+    if (getpost) {
+      return res.json(post);
+    } else {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+  } catch (err) {
+    console.error('Error en /getpost:', err);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.post('/updatepost', async (req, res) => {
+  const { id_post, name, release_date, description, image } = req.body; 
+
+  if (!id_post || !name || !release_date || !description || !image ) {
+    return res.status(400).json({ error: 'Todos los parametros son requeridos' });
+  }
+
+  try {
+    const newPost = await updatePost(id_post,name,release_date,description,image);
+    
+    if (newPost) {
+      return res.json(newPost);
+    } else {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+  } catch (err) {
+    console.error('Error en /updatepost:', err);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
 
 
 app.get('/', (req, res) => {
