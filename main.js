@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3002;
 
 const {posts, createpost, deletepost, getpost, updatePost} = require('./db.js');
 const { generateToken } = require('./jwt.js');
