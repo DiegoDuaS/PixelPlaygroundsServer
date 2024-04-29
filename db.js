@@ -59,6 +59,19 @@ async function updatePost(id, newName, newReleaseDate, newDescription, newImage)
     }
 }
 
+async function login(user, password_md5) {
+    try {
+        const { rows } = await pool.query('SELECT * FROM Usuario WHERE username = $1 AND  password = $2', [user, password_md5]);
+        if (rows.length === 1) {
+            return true
+        }
+        return false;
+    } catch (error) {
+        console.error('Error en la consulta SQL:', error);
+        throw error; 
+    }
+}
+
 
 
 module.exports = {
@@ -66,5 +79,6 @@ module.exports = {
     createpost,
     deletepost,
     getpost,
-    updatePost
+    updatePost,
+    login
 }

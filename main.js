@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT;
 
 const {posts, createpost, deletepost, getpost, updatePost} = require('./db.js');
+const { generateToken } = require('./jwt.js');
 
-// Middleware para parsear el cuerpo de la solicitud como JSON
 app.use(express.json());
+app.use(cors())
 
 app.get('/posts', async (req, res) => {
     try {
@@ -99,6 +100,28 @@ app.post('/updatepost', async (req, res) => {
     }
   } catch (err) {
     console.error('Error en /updatepost:', err);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.post('/login', async (req, res) => {
+  const { user, password } = req.body; // Suponiendo que usas JSON como entrada
+
+  if (!user || !password) {
+    return res.status(400).json({ error: 'ID y password son requeridos' });
+  }
+
+  try {
+    const success = await login(user, password);
+
+    if (success) {
+      const token = generateToken(user)
+      return res.status(400).json({"success": true, access_token: token})
+    } else {
+      return res.status(401).json({ "success": false });
+    }
+  } catch (err) {
+    console.error('Error en /login:', err);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
