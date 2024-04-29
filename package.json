@@ -5,7 +5,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node src/main.js"
+    "start": "node docs/main.js"
   },
   "author": "",
   "license": "ISC",
