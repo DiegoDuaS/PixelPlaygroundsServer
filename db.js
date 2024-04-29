@@ -1,6 +1,6 @@
-const pool = require('./conn.js');
+import pool from './conn.js'
 
-async function posts() {
+export async function posts() {
     try {
         const { rows } = await pool.query('SELECT * FROM Posts');
         return rows;
@@ -10,7 +10,7 @@ async function posts() {
     }
 }
 
-async function createpost(name, release_date, description, image) {
+export async function createpost(name, release_date, description, image) {
     try {
         const query = 'INSERT INTO Posts (name, release_date, description, image) VALUES ($1, $2, $3, $4)';
         await pool.query(query, [name, release_date, description, image]);
@@ -23,7 +23,7 @@ async function createpost(name, release_date, description, image) {
     }
 }
 
-async function deletepost(id) {
+export async function deletepost(id) {
     try {
         const query = 'DELETE FROM posts WHERE Post_id = $1';
         await pool.query(query, [id]);
@@ -35,7 +35,7 @@ async function deletepost(id) {
     }
 }
 
-async function getpost(id) {
+export async function getpost(id) {
     try {
         const query = 'SELECT * FROM Posts WHERE post_id = $1';
         const { rows } = await pool.query(query, [id]);
@@ -47,7 +47,7 @@ async function getpost(id) {
     }
 }
 
-async function updatePost(id, newName, newReleaseDate, newDescription, newImage) {
+export async function updatePost(id, newName, newReleaseDate, newDescription, newImage) {
     try {
         const query = 'UPDATE Posts SET name = $1, release_date = $2, description = $3, image = $4 WHERE post_id = $5;';
         await pool.query(query, [newName, newReleaseDate, newDescription, newImage, id]);
@@ -59,7 +59,7 @@ async function updatePost(id, newName, newReleaseDate, newDescription, newImage)
     }
 }
 
-async function login(user, password_md5) {
+export async function login(user, password_md5) {
     try {
         const { rows } = await pool.query('SELECT * FROM Usuario WHERE username = $1 AND  password = $2', [user, password_md5]);
         if (rows.length === 1) {
@@ -72,13 +72,3 @@ async function login(user, password_md5) {
     }
 }
 
-
-
-module.exports = {
-    posts,
-    createpost,
-    deletepost,
-    getpost,
-    updatePost,
-    login
-}

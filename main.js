@@ -1,13 +1,17 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import { generateToken, validateToken } from './jwt.js';
+import {posts, createpost, deletepost, getpost, updatePost} from './db.js'
 
 const PORT = process.env.PORT || 3002;
 
-const {posts, createpost, deletepost, getpost, updatePost} = require('./db.js');
-const { generateToken } = require('./jwt.js');
+const app = express()
 
-app.use(express.json());
+app.use(express.json())
+
+app.use(bodyParser.json())
+
 app.use(cors())
 
 app.get('/posts', async (req, res) => {

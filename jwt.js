@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken'
 const SECRET = 'estosgrumosquequieresbesaryabrazar'
 
 const generateToken = (user) => {
@@ -14,4 +14,4 @@ const validateToken = (token) => {
   }
 }
 
-module.exports =  { generateToken, validateToken }
+export { generateToken, validateToken }
