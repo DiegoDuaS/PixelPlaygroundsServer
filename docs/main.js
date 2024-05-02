@@ -2,16 +2,13 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import { generateToken, validateToken } from './jwt.js';
-import {posts, createpost, deletepost, getpost, updatePost} from './db.js'
+import {posts, createpost, deletepost, getpost, updatePost, login} from './db.js'
 
 const PORT = process.env.PORT || 3002;
 
 const app = express()
-
 app.use(express.json())
-
 app.use(bodyParser.json())
-
 app.use(cors())
 
 app.get('/posts', async (req, res) => {
@@ -109,7 +106,8 @@ app.post('/updatepost', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  const { user, password } = req.body; // Suponiendo que usas JSON como entrada
+  const { user, password } = req.body; 
+  console.log(user, password)
 
   if (!user || !password) {
     return res.status(400).json({ error: 'ID y password son requeridos' });
@@ -120,7 +118,7 @@ app.post('/login', async (req, res) => {
 
     if (success) {
       const token = generateToken(user)
-      return res.status(400).json({"success": true, access_token: token})
+      return res.status(200).json({"success": true, access_token: token})
     } else {
       return res.status(401).json({ "success": false });
     }
