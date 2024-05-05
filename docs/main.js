@@ -53,7 +53,7 @@ app.post('/deletepost', async (req, res) => {
     const PostD = await deletepost(post_id);
     
     if (deletepost) {
-      return res.json(PostD);
+      return res.status(200).json(PostD);
     } else {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
@@ -107,7 +107,6 @@ app.post('/updatepost', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const { user, password } = req.body; 
-  console.log(user, password)
 
   if (!user || !password) {
     return res.status(400).json({ error: 'ID y password son requeridos' });
@@ -118,6 +117,7 @@ app.post('/login', async (req, res) => {
 
     if (success) {
       const token = generateToken(user)
+      console.log(token)
       return res.status(200).json({"success": true, access_token: token})
     } else {
       return res.status(401).json({ "success": false });

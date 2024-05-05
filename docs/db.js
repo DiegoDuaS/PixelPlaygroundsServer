@@ -27,6 +27,8 @@ export async function deletepost(id) {
     try {
         const query = 'DELETE FROM posts WHERE Post_id = $1';
         await pool.query(query, [id]);
+        const query2 = 'UPDATE posts SET Post_id = (Post_id - 1) WHERE Post_id > $1';
+        await pool.query(query2,[id]);
         return 'Post Deleted';
 
     } catch (error) {
