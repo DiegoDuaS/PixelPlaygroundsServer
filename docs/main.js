@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import { generateToken, validateToken } from './jwt.js';
+import { generateToken } from './jwt.js';
 import { posts, createpost, deletepost, getpost, updatePost, login } from './db.js'
 
-const PORT = process.env.PORT || 3002;
+const PORT = 23075;
 
 const app = express()
 app.use(express.json())
