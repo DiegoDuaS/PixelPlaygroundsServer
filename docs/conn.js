@@ -4,7 +4,7 @@ const { Pool } = pkg
 dotenv.config()
 
 const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL
+  connectionString: "postgres://default:nfkSJbcP9C0z@ep-delicate-cake-a5lfz55z-pooler.us-east-2.aws.neon.tech:5432/verceldb?sslmode=require"
 })
 
 pool.connect((err) => {
