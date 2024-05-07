@@ -10,6 +10,7 @@ Este es el backend del proyecto Pixel Playgrounds, que proporciona una API RESTf
 - [Ejecución](#ejecución)
 - [Uso](#uso)
 - [Demo](#demo)
+- [Endpoints](#endpoints)
 - [Contribución](#contribución)
 - [Créditos](#créditos)
 - [Extras](#extras)
@@ -41,7 +42,16 @@ El API estará disponible en http://localhost:23075.
 
 ## Demo
 
-[Puedes encontrar una demostración del proyecto [aquí](https://api.tiburoncin.lat/23075)
+Puedes encontrar una demostración del proyecto [aquí](https://api.tiburoncin.lat/23075/)
+
+## Endpoints
+
+- **GET /posts**: Obtiene todas las publicaciones de los juegos. 
+- **POST /createpost**: Recibe la información para crear una nueva publicación.
+- **POST /deletepost**: Recibe un ID para borrar una publicación en específico. 
+- **POST /getpost**: Recibe un ID para obtener una publicación en específico. 
+- **POST /updatepost**: Actualiza una publicación de juego existente.
+- **POST /login**: Obtiene las credenciales para ingresar al area de administración.
 
 ## Contribución 
 
