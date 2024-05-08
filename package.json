@@ -2,10 +2,10 @@
   "name": "pixelplaygroundsserver",
   "version": "1.0.0",
   "description": "",
-  "main": "docs/main.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node docs/main.js",
+    "start": "node main.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -16,6 +16,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "node": "^20.13.0",
     "pg": "^8.11.5"
   },
   "devDependencies": {

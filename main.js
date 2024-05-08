@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import { generateToken } from './jwt.js';
-import { posts, createpost, deletepost, getpost, updatePost, login } from './db.js'
+import { posts, createpost, deletepost, getpost, updatePost, login } from './db.js';
 
 const PORT = 23075;
 
